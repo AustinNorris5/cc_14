@@ -31,3 +31,18 @@ function buildSupportTicket(customerName, issueDescription, priorityLevel) {
     ticket.appendChild(priorityLabel);
     ticket.appendChild(resolveButton);
 };
+
+//Task 3: Converting NodeLists to Arrays for Bulk Updates
+
+//Use document.querySelectorAll to select all tickets with a "High" priority class
+function highlightHighPriorityTickets() {
+    const highPriorityTickets = document.querySelectorAll(".high-priority");
+    
+//Convert the NodeList into an array using Array.from() or the spread operator
+    const ticketArray = Array.from(highPriorityTickets);
+    
+//Use an array method (e.g., .forEach()) to update the appearance of high-priority tickets
+    ticketArray.forEach(ticket => {
+        ticket.style.backgroundColor = "red";
+    });
+};
