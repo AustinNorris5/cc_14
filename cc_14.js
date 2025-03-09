@@ -10,20 +10,21 @@ function buildSupportTicket(customerName, issueDescription, priorityLevel) {
     customerName.textContent = name;
     
 //A paragraph for the issue description
-    const issueDesc = document.createElement("p");
-    issueDesc.textContent = issue;
+    const issueDescription = document.createElement("p");
+    issueDescription.textContent = issue;
     
 //A label indicating priority level
     const priorityLabel = document.createElement("span");
-    priorityLabel.setAttribute("class", "priority-label");
+    priorityLabel.setAttribute("class", "priorityLabel");
     priorityLabel.textContent = `Priority: ${priority}`;
     
 //A "Resolve" button to remove the ticket
     const resolveButton = document.createElement("button");
-    resolveButton.setAttribute("class", "resolve-btn");
+    resolveButton.setAttribute("class", "resolveButton");
     resolveButton.textContent = "Resolve";
-    resolveButton.addEventListener("click", function() {
-        ticket.remove();
+    resolveButton.addEventListener("click", function(event) {
+        event.stopPropagation(); //Use stopPropagation() in the "Resolve" button’s event handler to prevent bubbling
+        ticket.parentNode.removeChild(ticket); //Attach a click event listener to the "Resolve" button that removes its parent ticket using removeChild
     });
 //Append the support ticket to "ticketContainer" using appendChild
     ticket.appendChild(customerName);
@@ -46,3 +47,13 @@ function highlightHighPriorityTickets() {
         ticket.style.backgroundColor = "red";
     });
 };
+
+//Task 4: Implementing Ticket Resolution with Event Bubbling
+
+//Also, attach a click event listener to "ticketContainer" that logs a message when any ticket is clicked
+const ticketContainer = document.getElementById("ticketContainer");
+ticketContainer.addEventListener("click", function(event) {
+    if (event.target.classList.contains("supportTicket")) {
+        console.log("Ticket clicked:", event.target.id);
+    };
+});
