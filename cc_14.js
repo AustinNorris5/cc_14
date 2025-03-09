@@ -26,6 +26,20 @@ function buildSupportTicket(customerName, issueDescription, priorityLevel) {
         event.stopPropagation(); //Use stopPropagation() in the "Resolve" button’s event handler to prevent bubbling
         ticket.parentNode.removeChild(ticket); //Attach a click event listener to the "Resolve" button that removes its parent ticket using removeChild
     });
+
+// Add an event listener to each support ticket (or an edit button within it) that on double-click, swaps static content with input fields
+const editButton = document.createElement("button");
+    ticket.addEventListener("dblclick", function() {
+        enableEditing(ticket, customerName, issueDesc, priorityLabel);
+    });
+    
+    editButton.setAttribute("class", "edit-btn");
+    editButton.textContent = "Edit";
+    editButton.addEventListener("click", function(event) {
+        event.stopPropagation();
+        enableEditing(ticket, customerName, issueDesc, priorityLabel);
+    });
+
 //Append the support ticket to "ticketContainer" using appendChild
     ticket.appendChild(customerName);
     ticket.appendChild(issueDesc);
